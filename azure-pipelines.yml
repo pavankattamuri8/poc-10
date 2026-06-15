@@ -1,0 +1,19 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- task: Docker@2
+  displayName: Build and Push Image
+
+  inputs:
+    containerRegistry: 'acr-service-connection'
+    repository: 'flaskapp'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: |
+      latest
+      $(Build.BuildId)
